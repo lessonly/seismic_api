@@ -1,8 +1,8 @@
 require "test_helper"
 
-class SeismicApiTest < Minitest::Test
+class SeismicAPITest < Minitest::Test
   def test_that_it_has_a_version_number
-    refute_nil ::SeismicApi::VERSION
+    refute_nil ::SeismicAPI::VERSION
   end
 
   def test_getting_teamsites

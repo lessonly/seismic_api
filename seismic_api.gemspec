@@ -4,20 +4,20 @@ require "seismic_api/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "seismic_api"
-  spec.version       = SeismicApi::VERSION
+  spec.version       = SeismicAPI::VERSION
   spec.authors       = ["Ross Reinhardt"]
   spec.email         = ["rreinhardt9@gmail.com"]
 
   spec.summary       = %q{An API wrapper for Seismic's API}
   spec.description   = %q{An API wrapper for seismic's API extracted from work done for an integration}
-  spec.homepage      = "https://reinhardt.io"
+  spec.homepage      = "https://github.com/lessonly/seismic_api"
   spec.license       = "MIT"
 
   spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://reinhardt.io"
-  spec.metadata["changelog_uri"] = "https://reinhardt.io"
+  spec.metadata["source_code_uri"] = "https://github.com/lessonly/seismic_api"
+  spec.metadata["changelog_uri"] = "https://github.com/lessonly/seismic_api/CHANGELOG.md"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
@@ -33,4 +33,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "minitest", "~> 5.0"
   spec.add_development_dependency "webmock"
+  spec.add_development_dependency "yard"
 end
