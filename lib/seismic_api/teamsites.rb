@@ -102,11 +102,18 @@ module SeismicAPI
     # Query for items
     #
     # @param teamsiteId [String] ID of teamsite
+    # @param query [Hash] you must supply at least one option to query by
     # @option query [String] :externalId query by externalId
     # @option query [String] :externalConnectionId query by externalConnectionId
     # @return [SeismicAPI::Response]
 
     def items(teamsiteId:, **query)
+      unless query[:externalId] || query[:externalConnectionId]
+        raise ArgumentError,
+          "Must suppy one of externalId or "\
+          "externalConnectionId as a query option"
+      end
+
       request.get(
         "#{teamsites_url}/#{teamsiteId}/items",
         params: query
