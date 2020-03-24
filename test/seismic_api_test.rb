@@ -82,43 +82,6 @@ class SeismicAPITest < Minitest::Test
     }, response.body)
   end
 
-  def test_publish
-    stub = stub_request(:post, "#{teamsites_url}/32/publish")
-      .with(
-        headers: common_post_headers,
-        body: {
-          content: [
-            { id: "831" }
-          ]
-        }
-      ).to_return(body: {
-        "totalRequests" => "1",
-        "totalErrors" => "0",
-        "totalSucceeded" => "1",
-        "totalWarnings" => "0",
-        "errors" => [],
-        "warnings" => []
-      }.to_json)
-
-    response = SeismicAPI::Teamsites.new(oauth_token: "someoauthtoken")
-      .publish(
-        teamsiteId: 32,
-        content: [
-          { id: "831" }
-        ]
-      )
-
-    assert_requested(stub)
-    assert_equal({
-      "totalRequests" => "1",
-      "totalErrors" => "0",
-      "totalSucceeded" => "1",
-      "totalWarnings" => "0",
-      "errors" => [],
-      "warnings" => []
-    }, response.body)
-  end
-
   def base_url
     "https://api.seismic.com/integration/v2"
   end

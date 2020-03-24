@@ -1,6 +1,12 @@
 require "forwardable"
 
 module SeismicAPI
+
+  # Response represents a response from Seismic.
+  #
+  # It is returned when using methods in Request.
+  # @see SeismicAPI::Request
+
   class Response
     attr_reader :raw_response
     extend Forwardable

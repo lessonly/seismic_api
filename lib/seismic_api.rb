@@ -4,14 +4,15 @@ require "seismic_api/response"
 require "seismic_api/teamsites"
 
 module SeismicAPI
-  class Error < StandardError; end
 
   # Access the current configuration
+
   module_function def configuration
     @configuration ||= Configuration.new
   end
 
   # Alias so that we can refer to configuration as config
+
   module_function def config
     configuration
   end
@@ -26,9 +27,13 @@ module SeismicAPI
   #   end
   #
   # @yieldreturn [SeismicAPI::Configuration]
+
   module_function def configure
     yield configuration
   end
+
+  # Configuration holds the current configuration for the SeisimicAPI
+  # and provides defaults
 
   class Configuration
     attr_accessor :base_url
@@ -37,6 +42,12 @@ module SeismicAPI
       @base_url = args.fetch(:base_url) { "https://api.seismic.com/integration/v2" }
     end
   end
+
+  # Base level client for the Seismic API.
+  # You can access other sub clients through this class if desired.
+  #
+  # @example Accessing teamsites
+  #   SeismicAPI::Client.new(oauth_token: "token").teamsites
 
   class Client
     def initialize(oauth_token:nil)
