@@ -27,7 +27,7 @@ module SeismicAPI
         http.request(req)
       end
 
-      Response.new(res)
+      Response.new(res).raise_on_error
     end
 
     # Post request
@@ -48,7 +48,7 @@ module SeismicAPI
         http.request(req)
       end
 
-      Response.new(res)
+      Response.new(res).raise_on_error
     end
 
     # Put request
@@ -68,7 +68,7 @@ module SeismicAPI
         http.request(req)
       end
 
-      Response.new(res)
+      Response.new(res).raise_on_error
     end
   end
 end

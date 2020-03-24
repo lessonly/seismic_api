@@ -105,6 +105,7 @@ module SeismicAPI
     # @param query [Hash] you must supply at least one option to query by
     # @option query [String] :externalId query by externalId
     # @option query [String] :externalConnectionId query by externalConnectionId
+    #
     # @return [SeismicAPI::Response]
 
     def items(teamsiteId:, **query)

@@ -35,7 +35,6 @@ To view docs, run `bundle exec yard server` and then go to [localhost:8808](loca
 There are a few things that have guided work so far:
 
 - The clients are modular, so everything with "teamsites" is within a specific `Teamsites` client. It's possible that there are even divisions I could make in there?
-- It does not raise exceptions based on http codes. This prevents us from using exceptions as control flow and defers to the user of the library on how to handle any give request (even in cases of 4xx or 5xx codes)
 
 PRs are welcome!
 
