@@ -51,6 +51,27 @@ module SeismicAPI
       Response.new(res).raise_on_error
     end
 
+    # Patch request
+    #
+    # @param uri [String]
+    # @param body [#to_json] post body
+    #
+    # @return [SeismicAPI::Response]
+
+    def patch(uri, body: nil)
+      uri = URI.parse(uri)
+      req = Net::HTTP::Patch.new(uri)
+      req['Authorization'] = "Bearer #{@oauth_token}"
+      req.body = body.to_json if body
+      req['Content-Type'] = 'application/json'
+
+      res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+        http.request(req)
+      end
+
+      Response.new(res).raise_on_error
+    end
+
     # Put request
     #
     # @param uri [String]

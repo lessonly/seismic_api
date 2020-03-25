@@ -1,4 +1,5 @@
 require "test_helper"
+require "seismic_api/teamsites_stub"
 
 module SeismicAPI
   class TeamsitesTest < Minitest::Test
@@ -75,6 +76,23 @@ module SeismicAPI
 
       assert_requested(stub)
       assert_equal(JSON.parse(return_body), response.body)
+    end
+
+    def test_update_url
+      stub = SeismicAPI::TeamsitesStub.new.update_content(
+        teamsite_id: "1",
+        content_id: "1234qwfp",
+        post_body: { expiresAt: "2018-01-01T08:00:00Z" }
+      )
+
+      SeismicAPI::Teamsites.new(oauth_token: "some1234.token")
+        .update_url(
+          teamsiteId: "1",
+          contentId: "1234qwfp",
+          expiresAt: "2018-01-01T08:00:00Z"
+      )
+
+      assert_requested(stub)
     end
 
     def base_url

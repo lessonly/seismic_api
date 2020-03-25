@@ -72,6 +72,13 @@ module SeismicAPI
       )
     end
 
+    def update_url(teamsiteId:, contentId:, **args)
+      request.patch(
+        "#{teamsites_url}/#{teamsiteId}/urls/#{contentId}",
+        body: args
+      )
+    end
+
     # Publish given library content
     #
     # @param teamsiteId [String] ID of teamsite
