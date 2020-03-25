@@ -88,7 +88,7 @@ module SeismicAPI
       ).to_return(body: return_body.to_json)
     end
 
-    def update_content(**args)
+    def update_url(**args)
       teamsite_id = args.fetch(:teamsite_id, "1")
       content_id = args.fetch(:content_id)
       authorization = args.fetch(:authorization, /Bearer [\w.-]+$/)

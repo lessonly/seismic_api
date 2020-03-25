@@ -79,7 +79,7 @@ module SeismicAPI
     end
 
     def test_update_url
-      stub = SeismicAPI::TeamsitesStub.new.update_content(
+      stub = SeismicAPI::TeamsitesStub.new.update_url(
         teamsite_id: "1",
         content_id: "1234qwfp",
         post_body: { expiresAt: "2018-01-01T08:00:00Z" }
