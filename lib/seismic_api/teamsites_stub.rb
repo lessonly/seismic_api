@@ -4,6 +4,50 @@ module SeismicAPI
   class TeamsitesStub
     include WebMock::API
 
+    def add_folder(**args)
+      authorization = args.fetch(:authorization, /Bearer [\w.-]+$/)
+      teamsite_id = args.fetch(:teamsite_id, "1")
+      new_folder_id = args.fetch(:new_folder_id, "1234arst")
+      name = args.fetch(:name, "New Folder")
+      parent_folder_id = args.fetch(:parent_folder_id, "root")
+      post_body = {
+        name: name,
+        parentFolderId: parent_folder_id
+      }
+      response_body = {
+        id: new_folder_id,
+        name: name,
+        parent_folder_id: parent_folder_id
+      }.to_json
+
+      stub_request(:post, "#{teamsites_url}/#{teamsite_id}/folders")
+        .with(
+          headers: { "Authorization" => authorization },
+          body: post_body
+      ).to_return(body: response_body)
+    end
+
+    def all(**args)
+      authorization = args.fetch(:authorization, /Bearer [\w.-]+$/)
+      teamsites = args.fetch(:teamsites) do
+        [{ "id" => 4, "name" => "SomeTeamsite" }]
+      end
+
+      stub_request(:get, teamsites_url)
+        .with(headers: { "Authorization" => authorization })
+        .to_return(body: teamsites.to_json)
+    end
+
+    def find(**args)
+      teamsite_id = args.fetch(:teamsite_id, "1")
+      name = args.fetch(:name, "Teamsite Name")
+      authorization = args.fetch(:authorization, /Bearer [\w.-]+$/)
+
+      stub_request(:get, "#{teamsites_url}/#{teamsite_id}")
+        .with(headers: { 'Authorization' => authorization })
+        .to_return(body: { "id" => teamsite_id, "name" => name }.to_json)
+    end
+
     def items(**args)
       teamsite_id = args.fetch(:teamsite_id, "1")
       item_count = args.fetch(:item_count, 1)
