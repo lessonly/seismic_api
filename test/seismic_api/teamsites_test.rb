@@ -42,6 +42,7 @@ module SeismicAPI
 
     def test_unpublish
       stub = stub_request(:put, "#{teamsites_url}/32/items/831/unpublish")
+        .with(headers: common_post_headers)
 
       SeismicAPI::Teamsites.new(oauth_token: "someoauthtoken")
         .unpublish(

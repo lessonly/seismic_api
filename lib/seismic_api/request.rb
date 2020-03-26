@@ -84,6 +84,7 @@ module SeismicAPI
       if @oauth_token
         req['Authorization'] = "Bearer #{@oauth_token}"
       end
+      req['Content-Type'] = 'application/json'
 
       res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
         http.request(req)
