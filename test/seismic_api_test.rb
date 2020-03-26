@@ -28,19 +28,32 @@ class SeismicAPITest < Minitest::Test
   end
 
   def test_adding_folder_to_teamsite
-    stub = stub_request(:post, "https://api.seismic.com/integration/v2/teamsites/32/folders")
-      .with(
-        headers: { 'Authorization' => 'Bearer someoauthtoken', 'content-type' => 'application/json' },
-        body: { name: "Lessonly", parentFolderId: "root" }
-      ).to_return(body: { "id" => 32, "name" => "Lessonly" }.to_json)
+    teamsite_stubs = SeismicAPI::TeamsitesStub.new
+    stub = teamsite_stubs.add_folder(
+      teamsite_id: "32",
+      new_folder_id: "1234qwfp",
+      name: "Acme",
+      options: {
+        externalId: "Widget/9",
+        externalConnectionId: "acme"
+      }
+    )
 
     response = SeismicAPI::Client.new(oauth_token: "someoauthtoken").teamsites.add_folder(
       teamsiteId: "32",
-      name: "Lessonly"
+      name: "Acme",
+      externalId: "Widget/9",
+      externalConnectionId: "acme"
     )
 
     assert_requested(stub)
-    assert_equal({ "id" => 32, "name" => "Lessonly" }, response.body)
+    assert_equal({
+      "id" => "1234qwfp",
+      "name" => "Acme",
+      "parentFolderId" => "root",
+      "externalId" => "Widget/9",
+      "externalConnectionId" => "acme"
+    }, response.body)
   end
 
   def test_add_url_content_to_teamsite

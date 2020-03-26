@@ -44,13 +44,15 @@ module SeismicAPI
     # @param name [String] name of folder
     # @param parentFolderId [String] ID of parent folder (it not supplied,
     #   it goes into the root directory for that teamsite)
+    # @option args [String] :externalId ID in external system
+    # @option args [String] :externalConnectionId ID of external system
     #
     # @return [SeismicAPI::Response]
 
-    def add_folder(teamsiteId:, name:, parentFolderId: "root")
+    def add_folder(teamsiteId:, name:, parentFolderId: "root", **args)
       request.post(
         "#{teamsites_url}/#{teamsiteId}/folders",
-        body: { name: name, parentFolderId: parentFolderId }
+        body: { name: name, parentFolderId: parentFolderId, **args }
       )
     end
 

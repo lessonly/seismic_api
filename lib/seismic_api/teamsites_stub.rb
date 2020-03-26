@@ -10,15 +10,17 @@ module SeismicAPI
       new_folder_id = args.fetch(:new_folder_id, "1234arst")
       name = args.fetch(:name, "New Folder")
       parent_folder_id = args.fetch(:parent_folder_id, "root")
+      options = args.fetch(:options, {})
+
       post_body = {
         name: name,
         parentFolderId: parent_folder_id
-      }
+      }.merge(options)
       response_body = {
         id: new_folder_id,
         name: name,
-        parent_folder_id: parent_folder_id
-      }.to_json
+        parentFolderId: parent_folder_id
+      }.merge(options).to_json
 
       stub_request(:post, "#{teamsites_url}/#{teamsite_id}/folders")
         .with(
@@ -80,13 +82,6 @@ module SeismicAPI
     def add_url(**args)
       teamsite_id = args.fetch(:teamsite_id, "1")
       authorization = args.fetch(:authorization, /Bearer [\w.-]+$/)
-      # name = args.fetch(:name, "")
-      # description = args.fetch(:description, "")
-      # parent_folder_id = args.fetch(:parent_folder_id, "")
-      # external_id = args.fetch(:external_id, nil)
-      # external_connection_id = args.fetch(:external_connection_id, nil)
-      # url = args.fetch(:url)
-      # open_in_new_window = args.fetch(:open_in_new_window, false)
       new_url_id = args.fetch(:new_url_id, "32")
       post_body = args.fetch(:post_body)
       return_body = post_body.reject { |k,v| %i(:parentFolderId).include?(k) }
