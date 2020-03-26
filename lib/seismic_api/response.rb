@@ -38,6 +38,8 @@ module SeismicAPI
     #
     # @return [Hash] request body
     def body
+      return {} if @raw_response.body.strip.empty?
+
       JSON.parse(@raw_response.body)
     end
 

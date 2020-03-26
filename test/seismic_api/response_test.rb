@@ -35,6 +35,17 @@ module SeismicAPI
       end
     end
 
+    def test_raise_on_bad_request_with_empty_body
+      assert_raises(SeismicAPI::HTTPBadRequest) do
+        mock_response = OpenStruct.new(
+          code: "400",
+          body: ""
+        )
+
+        Response.new(mock_response).raise_on_error
+      end
+    end
+
     def test_raise_on_unauthorized
       assert_raises(SeismicAPI::HTTPUnauthorized) do
         mock_response = OpenStruct.new(
@@ -44,6 +55,17 @@ module SeismicAPI
 
         Response.new(mock_response).raise_on_error
       end
+    end
+
+    def test_when_body_is_empty_string
+        mock_response = OpenStruct.new(
+          code: "400",
+          body: ""
+        )
+
+        response = Response.new(mock_response)
+
+        assert_equal({}, response.body)
     end
   end
 end
