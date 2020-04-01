@@ -150,7 +150,11 @@ module SeismicAPI
       )
         .to_return(
           status: 400,
-          body: { error: { message: "Unpublished failed. Content #{content_id} is not published" } }
+          body: {
+            error: {
+              message: "Unpublished failed. Content #{content_id} is not published"
+            }
+          }.to_json
       )
     end
 
