@@ -139,6 +139,21 @@ module SeismicAPI
         .to_return(body: "")
     end
 
+    def unpublish_when_not_published(**args)
+      teamsite_id = args.fetch(:teamsite_id, "1")
+      content_id = args.fetch(:content_id, "1234arst")
+      authorization = args.fetch(:authorization, /Bearer [\w.-]+$/)
+
+      stub_request(:put, "#{teamsites_url}/#{teamsite_id}/items/#{content_id}/unpublish")
+        .with(
+          headers: { "Authorization" => authorization }
+      )
+        .to_return(
+          status: 400,
+          body: { error: { message: "Unpublished failed. Content #{content_id} is not published" } }
+      )
+    end
+
     def update_url(**args)
       teamsite_id = args.fetch(:teamsite_id, "1")
       content_id = args.fetch(:content_id)
