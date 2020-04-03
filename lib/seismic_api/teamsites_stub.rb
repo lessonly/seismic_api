@@ -96,6 +96,26 @@ module SeismicAPI
       }.to_json)
     end
 
+    def add_url_duplicate_name(**args)
+      teamsite_id = args.fetch(:teamsite_id, "1")
+      authorization = args.fetch(:authorization, /Bearer [\w.-]+$/)
+      post_body = args.fetch(:post_body)
+
+      stub_request(:post, "#{teamsites_url}/#{teamsite_id}/urls")
+        .with(
+          headers: { "Authorization" => authorization },
+          body: post_body
+      )
+        .to_return(
+          status: 400,
+          body: {
+            error: {
+              message: "A url with name '#{post_body[:name]}' already exists in the target folder."
+            }
+          }.to_json
+      )
+    end
+
     def publish_with_warning(**args)
       teamsite_id = args.fetch(:teamsite_id, "1")
       content_id = args.fetch(:content_id, "1234arst")
