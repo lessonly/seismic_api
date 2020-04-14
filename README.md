@@ -20,7 +20,29 @@ Or install it yourself as:
 
 ## Usage
 
-For now, please check out the inline documentation for usage. If you would like to help add some usage examples here from those, that would be awesome!
+There is a base client class that you can access parts of the API through. For example, you can access teamsites:
+
+```
+SeismicAPI::Client.new(oauth_token: "token").teamsites.all
+```
+
+You can also access the teamsite client directly:
+
+```
+SeismicAPI::Teamsites.new(oauth_token: "token").all
+```
+
+The attributes for the any particular endpoint mimic the structure and style (using camel case) found in the Seismic docs. For example, to add url content to a teamsite:
+
+```
+SeismicAPI::Teamsites.new(oauth_token: "token").add_url(
+  teamsiteId: "1",
+  name: "My Link",
+  url: { url: "www.google.com", openInNewWindow: true }
+)
+```
+
+Documentation for each of the endpoints individually is available inline with the code (you can also optionally generate docs from that in line documentation locally)
 
 ## Development
 
@@ -36,7 +58,9 @@ There are a few things that have guided work so far:
 
 - The clients are modular, so everything with "teamsites" is within a specific `Teamsites` client. It's possible that there are even divisions I could make in there?
 
-PRs are welcome!
+## Contributing
+
+Bug reports and pull requests are welcome on GitHub at https://github.com/lessonly/seismic_api. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 Please squash the code in your PR down into a commit with a sensible message before requesting review (or after making updates based on review).
 
@@ -44,9 +68,7 @@ Here are some tips on good commit messages:
 [Thoughtbot](https://thoughtbot.com/blog/5-useful-tips-for-a-better-commit-message)
 [Tim Pope](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
 
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/lessonly/seismic_api. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Once you are ready for review, ping the @lessonly/apps team to get our attention.
 
 ## License
 
