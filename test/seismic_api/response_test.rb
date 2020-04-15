@@ -57,6 +57,17 @@ module SeismicAPI
       end
     end
 
+    def test_raise_on_forbidden
+      assert_raises(SeismicAPI::HTTPForbidden) do
+        mock_response = OpenStruct.new(
+          code: "403",
+          body: { error: { message: "Forbidden: Unauthorized request" }}.to_json
+        )
+
+        Response.new(mock_response).raise_on_error
+      end
+    end
+
     def test_when_body_is_empty_string
         mock_response = OpenStruct.new(
           code: "400",

@@ -8,6 +8,7 @@ module SeismicAPI
   class HTTPServerError < SeismicError; end
   class HTTPBadRequest < HTTPClientError; end
   class HTTPUnauthorized < HTTPClientError; end
+  class HTTPForbidden < HTTPClientError; end
 
   # Response represents a response from Seismic.
   #
@@ -48,6 +49,7 @@ module SeismicAPI
         case code
         when 400; HTTPBadRequest
         when 401; HTTPUnauthorized
+        when 403; HTTPForbidden
         when (400...500); HTTPClientError
         when (500...600); HTTPServerError
         end
