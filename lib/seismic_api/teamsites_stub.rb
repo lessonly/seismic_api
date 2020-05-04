@@ -63,7 +63,11 @@ module SeismicAPI
           }
         ]
       end
-      external_id = args.fetch(:external_id, "")
+      external_id = args[:external_id]
+      ext_connection_id = args[:external_connection_id]
+      query = {}
+      query[:externalId] = external_id if external_id
+      query[:externalConnectionId] = ext_connection_id if ext_connection_id
       authorization = args.fetch(:authorization, /Bearer [\w.-]+$/)
 
       return_body = {
@@ -74,7 +78,7 @@ module SeismicAPI
       stub_request(:get, "#{teamsites_url}/#{teamsite_id}/items")
         .with(
           headers: { "Authorization" => authorization },
-          query: { externalId: external_id, externalConnectionId: "lessonly" }
+          query: query
       )
         .to_return(body: return_body)
     end
