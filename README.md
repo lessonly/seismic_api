@@ -2,6 +2,8 @@
 
 SeismicAPI is a wrapper around the API Seismic exposes for integrations. It was extracted from the Lessonly connector to Seismic.
 
+[Documentation on Rubydoc](https://www.rubydoc.info/github/lessonly/seismic_api/master)
+
 ## Installation
 
 Add this line to your application's Gemfile:
