@@ -1,8 +1,8 @@
 name: Veracode Upload and Scan
 on:
   # Run once monthly
-  schedule:
-    - cron: '0 0 1 */1 *'
+  pull_request:
+    types: [opened, reopened]
 
   # Allow manual runs to be triggered  
   workflow_dispatch:
